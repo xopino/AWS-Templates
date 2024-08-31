@@ -1,4 +1,6 @@
 .idea/
+.env.local
+
 # Local .terraform directories
 **/.terraform/*
 
