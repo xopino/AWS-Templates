@@ -1,5 +1,6 @@
 .idea/
 .env.local
+.aws/
 
 # Local .terraform directories
 **/.terraform/*
