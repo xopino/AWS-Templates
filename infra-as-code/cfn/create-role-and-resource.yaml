@@ -5,6 +5,10 @@ Parameters:
     Type: String
     Default: "example-bucket-122223"
 Resources: 
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Ref BucketName
   StsRole:
     Type: 'AWS::IAM::Role'
     Properties:
@@ -12,9 +16,8 @@ Resources:
         Version: "2012-10-17"
         Statement:
           - Effect: Allow
-            Principal:
-              Service:
-                - s3.amazonaws.com
+            Principal: 
+              AWS: "arn:aws:iam::EXAMPLE-ACCOUNT-ID:user/EXAMPLE-USERNAME" 
             Action:
               - 'sts:AssumeRole'
       Path: /
@@ -26,6 +29,7 @@ Resources:
               - Effect: Allow
                 Action: '*'
                 Resource: [
+                  !Sub "arn:aws:s3:::", # here we are allowing the policy to access to all s3 buckets
                   !Sub "arn:aws:s3:::${BucketName}",
                   !Sub "arn:aws:s3:::${BucketName}/*"
                 ]
